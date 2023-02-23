@@ -31,10 +31,14 @@ export const todoSlice = createSlice({
       if (todoComplete) {
         todoComplete.body = action.payload.body
       }
+    },
+    hideCompleted: (state) => {
+      let sorted = state.todo.filter((obj) => obj.isComplete === false)
+      state.todo = [...sorted]
     }
   }
 })
 
-export const {todoAdd, todoRemove, todoComplete, todoEdit} = todoSlice.actions
+export const {todoAdd, todoRemove, todoComplete, todoEdit, hideCompleted} = todoSlice.actions
 
 export default todoSlice.reducer

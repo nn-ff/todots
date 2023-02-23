@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import todoSlice from './slice/todoSlice'
+import sortSlice from './slice/sortSlice'
 
 import storage from 'redux-persist/lib/storage';
 import {
@@ -14,13 +15,14 @@ import {
 
 
 const rootReducer = combineReducers({
-  todoSlice
+  todoSlice,
+  sortSlice
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['todoSlice']
+  whitelist: ['todoSlice', 'sortSlice']
 }
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
