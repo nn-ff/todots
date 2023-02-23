@@ -6,7 +6,7 @@ interface TodoState {
 }
 
 const initialState: TodoState = {
-  todo: [{id: 1, body: '2312', isComplete: false}],
+  todo: [],
 }
 
 export const todoSlice = createSlice({
