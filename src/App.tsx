@@ -16,11 +16,8 @@ const App = () => {
     setValue(e.target.value)
   }
   const onClickAdd = () => {
-    console.log(value.length)
-    
       dispatch(todoAdd({id: Date.now(), body: value, isComplete: false}))
       setValue('')
-  
   }
   React.useEffect(() => {
     setItems([...todo.filter((obj) => completed ? obj.isComplete !== completed : obj)])
