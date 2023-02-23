@@ -16,8 +16,11 @@ const App = () => {
     setValue(e.target.value)
   }
   const onClickAdd = () => {
-    dispatch(todoAdd({id: Date.now(), body: value, isComplete: false}))
-    setValue('')
+    console.log(value.length)
+    
+      dispatch(todoAdd({id: Date.now(), body: value, isComplete: false}))
+      setValue('')
+  
   }
   React.useEffect(() => {
     setItems([...todo.filter((obj) => completed ? obj.isComplete !== completed : obj)])
@@ -28,7 +31,7 @@ const App = () => {
       <div className='text-center my-5'>
         
       <input onChange={inputHandler} value={value} className='border-black border p-2 mb-5' placeholder='task'></input>
-      <button onClick={onClickAdd} className='ml-5 border-black border p-2'>add</button>
+      <button onClick={onClickAdd} disabled={value.length ? false : true} className={`ml-5 border-black border p-2 ${value.length ? '' : 'opacity-50'}`}>add</button>
       
       {todo.length !== 0 && <button onClick={() => dispatch(hideCompleted())} className={`w-60 border-black/50 border block mx-auto p-5  ${!completed ? 'bg-green-100' : 'bg-blue-200'}`}>{!completed ? "Hide Completed" : "Show Completed"}</button>}
       </div>
