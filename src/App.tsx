@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import TodoItem from './components/TodoItem'
+import { useAppDispatch, useAppSelector } from './hooks/redux'
+import { todoAdd } from './store/slice/todoSlice'
 
-function App() {
+const App = () => {
+  const dispatch = useAppDispatch()
+  const todo = useAppSelector(state => state.todoSlice.todo)
+  const [value, setValue] = React.useState<string>('')
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value)
+  }
+  const onClickAdd = () => {
+    dispatch(todoAdd({id: Date.now(), body: value, isComplete: false}))
+    setValue('')
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='max-w-screen-xl mx-auto'>
+      <div className='text-center my-5'>
+      <input onChange={inputHandler} value={value} className='border-black border p-2 mb-5' placeholder='task'></input>
+      <button onClick={onClickAdd} className='ml-5 border-black border p-2'>add</button>
+      </div>
+      {todo.map((obj, index) => {
+        return(
+          <TodoItem key={obj.id}  todo={obj} index={index} />
+        )
+      })}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
